@@ -49859,6 +49859,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.get('http://127.0.0.1:8000/api/posts').then(function (results) {
   console.log(results);
 })["catch"](function (e) {
@@ -49901,7 +49902,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\marys\OneDrive\Desktop\boolean_projects\laravel-api\resources\js\front-app.js */"./resources/js/front-app.js");
+module.exports = __webpack_require__(/*! C:\Users\marys\OneDrive\Desktop\boolean_projects\laravel-boolpress\resources\js\front-app.js */"./resources/js/front-app.js");
 
 
 /***/ })
