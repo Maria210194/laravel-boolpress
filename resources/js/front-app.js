@@ -39,10 +39,13 @@ window.Vue = require('vue');
 
 
 import AppComponent from './app/AppComponent'
+import router from './routes'
+
 //AppComponent = require('./app/AppComponent.vue').default
 
 const app = new Vue({
     el: '#app',
-    render: (createElement)=>createElement(AppComponent)
+    render: (createElement)=>createElement(AppComponent),
+    router
 });
 
