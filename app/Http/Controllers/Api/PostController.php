@@ -18,7 +18,7 @@ class PostController extends Controller
         //
         $posts = Post::with('category')->get();
 
-        $result = ['result'=>$posts, 'success'=>true];
+        $result = ['results'=>$posts, 'success'=>true];
         return response()->json($result);
 
     }
