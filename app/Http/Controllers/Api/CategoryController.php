@@ -18,7 +18,7 @@ class CategoryController extends Controller
         //
         $categories = Category::all();
 
-        $result = ['result'=>$categories, 'success'=>true];
+        $result = ['results'=>$categories, 'success'=>true];
         return response()->json($result);
 
     }
@@ -54,7 +54,7 @@ class CategoryController extends Controller
     {
         //
         $category = Category::find($id);
-        $result = ['result'=>$category, 'success'=>true];
+        $result = ['results'=>$category, 'success'=>true];
 
         return response()->json($result);
     }
