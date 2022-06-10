@@ -21,17 +21,17 @@ const router = new VueRouter({
             component: HomeComponent
         },
         {
-            path: 'blog',
+            path: '/blog',
             name: 'blog',
             component: BlogComponent
         },
         {
-            path: 'who-we-are',
+            path: '/who-we-are',
             name: 'who-we-are',
             component: WhoWeAreComponent
         },
         {
-            path: 'contacts',
+            path: '/contacts',
             name: 'contacts',
             component: ContactsComponent
         },

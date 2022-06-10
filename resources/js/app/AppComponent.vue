@@ -1,6 +1,8 @@
 <template>
 <div>
-    <HeaderComponent />
+    <div class="mb-1">
+        <HeaderComponent />
+    </div>
     <router-view></router-view>
 </div>
 
@@ -15,6 +17,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
+
