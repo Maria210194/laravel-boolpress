@@ -9,6 +9,7 @@ import ContactsComponent from './pages/ContactsComponent'
 import NotFoundComponent from './pages/NotFoundComponent'
 import BlogComponent from './pages/BlogComponent'
 import WhoWeAreComponent from './pages/WhoWeAreComponent'
+import SingleBlogComponent from './pages/SingleBlogComponent'
 
 
 
@@ -24,6 +25,11 @@ const router = new VueRouter({
             path: '/blog',
             name: 'blog',
             component: BlogComponent
+        },
+        {
+            path: '/blog/:id',
+            name: 'single-blog',
+            component: SingleBlogComponent
         },
         {
             path: '/who-we-are',

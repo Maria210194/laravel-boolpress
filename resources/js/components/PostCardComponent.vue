@@ -2,15 +2,16 @@
   <div>
       <div class="container">
           <div class="row my-1">
-            <h5 class="cont">
+            <h4 class="cont mt-4">
                 {{title}}
-            </h5>
+            </h4>
           </div>
           <div>
               <p>
                   {{trimedContent + ' ...'}}
               </p>
           </div>
+          <router-link :to="{ name:'single-blog', params: {id} }"> Visualizza</router-link>
       </div>
   </div>
 </template>
@@ -18,7 +19,7 @@
 <script>
 export default {
     name: 'PostCardComponent',
-    props: ['title' , 'content'],
+    props: ['title', 'content', 'id'],
     computed: {
         trimedContent(){
             const shortContent = this.content.length>30 ? this.content.substring(0, 30) : this.content
