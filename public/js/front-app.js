@@ -2076,6 +2076,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'BlogComponent',
@@ -2084,24 +2095,42 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      cuttentPage: 1,
+      previosPageLink: '',
+      lastPage: 1
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     console.log('mounted!!');
-    window.axios.get('http://127.0.0.1:8000/api/posts').then(function (_ref) {
-      var status = _ref.status,
-          data = _ref.data;
-      console.log(data);
+    this.loadPage('http://127.0.0.1:8000/api/posts');
+  },
+  methods: {
+    loadPage: function loadPage(url) {
+      var _this = this;
 
-      if (status === 200 && data.success) {
-        _this.posts = data.results;
-      }
-    })["catch"](function (e) {
-      console.log(e);
-    });
+      window.axios.get(url).then(function (_ref) {
+        var status = _ref.status,
+            data = _ref.data;
+        console.log(data);
+
+        if (status === 200 && data.success) {
+          _this.posts = data.results.data;
+          _this.currentPage = data.results.current_page;
+          _this.lastPage = data.results.last_page;
+          _this.previosPageLink = data.results.prev_page_url;
+          _this.nextPageLink = data.results.next_page_url;
+        }
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
+    goPreviousPage: function goPreviousPage() {
+      this.loadPage(this.previosPageLink);
+    },
+    goNextPage: function goNextPage() {
+      this.loadPage(this.nextPageLink);
+    }
   }
 });
 
@@ -38693,7 +38722,49 @@ var render = function () {
       _vm.posts.length > 0
         ? _c(
             "div",
-            [_c("PostCardListComponent", { attrs: { posts: _vm.posts } })],
+            [
+              _c("PostCardListComponent", { attrs: { posts: _vm.posts } }),
+              _vm._v(" "),
+              _vm.previosPageLink
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary mt-5",
+                      on: {
+                        click: function ($event) {
+                          return _vm.goPreviousPage()
+                        },
+                      },
+                    },
+                    [_vm._v("\n              Previous\n          ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.nextPageLink
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary mt-5",
+                      on: {
+                        click: function ($event) {
+                          return _vm.goNextPage()
+                        },
+                      },
+                    },
+                    [_vm._v("\n              Next\n          ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-2" }, [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(_vm.currentPage) +
+                    "/" +
+                    _vm._s(_vm.lastPage) +
+                    "\n          "
+                ),
+              ]),
+            ],
             1
           )
         : _c("div", [_vm._v("\n            Caricamento in corso\n        ")]),

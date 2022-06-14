@@ -16,7 +16,9 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::with('category')->get();
+        //$posts = Post::with('category')->get();
+        $posts = Post::paginate(2); //così mi restituisce 2 record alla volta
+
 
         $result = ['results'=>$posts, 'success'=>true];
         return response()->json($result);

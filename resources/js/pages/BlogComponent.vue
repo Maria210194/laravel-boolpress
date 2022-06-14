@@ -6,7 +6,18 @@
           </div>
           <!--se i post sono stati valorizzati, li mostro: -->
           <div v-if="posts.length>0">
-              <PostCardListComponent :posts="posts" />
+            <PostCardListComponent :posts="posts" />
+
+            <button v-if="previosPageLink" @click="goPreviousPage()" class="btn btn-primary mt-5">
+                Previous
+            </button>
+            <button v-if="nextPageLink" @click="goNextPage()" class="btn btn-primary mt-5">
+                Next
+            </button>
+            <div class="mt-2">
+                {{currentPage}}/{{lastPage}}
+            </div>
+
           </div>
 
             <!--altrimenti mostro: -->
@@ -26,22 +37,38 @@ export default {
     components: {PostCardListComponent},
     data(){
         return {
-            posts:[]
+            posts:[],
+            cuttentPage: 1,
+            previosPageLink: '',
+            lastPage: 1
         }
     },
     mounted() {
         console.log('mounted!!')
-
-        window.axios.get('http://127.0.0.1:8000/api/posts')
-        .then(({status, data})=>{
-            console.log(data);
-            if(status===200 && data.success){
-                this.posts=data.results;
+        this.loadPage('http://127.0.0.1:8000/api/posts');
+    },
+    methods: {
+        loadPage(url){
+            window.axios.get(url)
+            .then(({status, data})=>{
+                console.log(data);
+                if(status===200 && data.success){
+                    this.posts=data.results.data;
+                    this.currentPage = data.results.current_page;
+                    this.lastPage= data.results.last_page;
+                    this.previosPageLink = data.results.prev_page_url;
+                    this.nextPageLink = data.results.next_page_url;
             }
-        }).catch(e=>{
+            }).catch(e=>{
             console.log(e);
         })
-
+        },
+        goPreviousPage(){
+            this.loadPage(this.previosPageLink);
+        },
+        goNextPage(){
+            this.loadPage(this.nextPageLink);
+        }
     }
 
 }
