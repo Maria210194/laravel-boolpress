@@ -2006,7 +2006,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostCardComponent',
-  props: ['title', 'content', 'id'],
+  props: ['title', 'content', 'slug'],
   computed: {
     trimedContent: function trimedContent() {
       var shortContent = this.content.length > 30 ? this.content.substring(0, 30) : this.content;
@@ -2269,9 +2269,9 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    var id = this.$route.params.id;
-    console.log('mounted with id: ', id);
-    window.axios.get('http://127.0.0.1:8000/api/posts/' + id).then(function (_ref) {
+    var slug = this.$route.params.slug;
+    console.log('mounted with slug: ', slug);
+    window.axios.get('http://127.0.0.1:8000/api/posts/' + slug).then(function (_ref) {
       var status = _ref.status,
           data = _ref.data;
       console.log(data);
@@ -38644,7 +38644,9 @@ var render = function () {
         _vm._v(" "),
         _c(
           "router-link",
-          { attrs: { to: { name: "single-blog", params: { id: _vm.id } } } },
+          {
+            attrs: { to: { name: "single-blog", params: { slug: _vm.slug } } },
+          },
           [_vm._v(" Visualizza")]
         ),
       ],
@@ -38682,7 +38684,11 @@ var render = function () {
         { key: index },
         [
           _c("PostCardComponent", {
-            attrs: { title: post.title, content: post.content, id: post.id },
+            attrs: {
+              title: post.title,
+              content: post.content,
+              slug: post.slug,
+            },
           }),
         ],
         1
@@ -55229,7 +55235,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'blog',
     component: _pages_BlogComponent__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
-    path: '/blog/:id',
+    path: '/blog/:slug',
     name: 'single-blog',
     component: _pages_SingleBlogComponent__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
