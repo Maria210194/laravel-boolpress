@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
+use App\Post;
 
 class CategoryController extends Controller
 {
@@ -52,9 +53,18 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        //vecchia versione (il return è uguale):
+        //$category = Category::where('id', $id)->with('posts')->first();
+        //$result = ['results'=>$category, 'success'=>true];
+
+        //nuova versione:
         $category = Category::find($id);
-        $result = ['results'=>$category, 'success'=>true];
+        $posts = Post::where('category_id', $id)->paginate(2);
+        $aggregateData = [
+            'category' => $category,
+            'posts' => $posts
+        ];
+        $result = ['results'=>$aggregateData, 'success'=>true];
 
         return response()->json($result);
     }

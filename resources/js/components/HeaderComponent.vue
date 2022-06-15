@@ -22,6 +22,7 @@ export default {
             menu: [
                 {linkName: 'home', label: 'Home'},
                 {linkName: 'blog', label: 'My posts'},
+                {linkName: 'categories', label: 'Categories'},
                 {linkName: 'who-we-are', label: 'Who we are'},
                 {linkName: 'contacts', label: 'Contacts'}
             ]

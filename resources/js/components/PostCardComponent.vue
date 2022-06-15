@@ -2,7 +2,7 @@
   <div>
       <div class="container">
           <div class="row my-1">
-            <h4 class="cont mt-4">
+            <h4 @click="click()" class="cont mt-4">
                 {{title}}
             </h4>
           </div>
@@ -24,6 +24,12 @@ export default {
         trimedContent(){
             const shortContent = this.content.length>30 ? this.content.substring(0, 30) : this.content
             return shortContent;
+        }
+    },
+    methods: {
+        click(){
+            console.log('click');
+            this.$emit('titleClicked', 'ciao Mary');
         }
     }
 }

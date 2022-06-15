@@ -10,7 +10,8 @@ import NotFoundComponent from './pages/NotFoundComponent'
 import BlogComponent from './pages/BlogComponent'
 import WhoWeAreComponent from './pages/WhoWeAreComponent'
 import SingleBlogComponent from './pages/SingleBlogComponent'
-
+import CategoriesComponent from './pages/CategoriesComponent'
+import PostsPerCategoryComponent from './pages/PostsPerCategoryComponent'
 
 
 const router = new VueRouter({
@@ -30,6 +31,16 @@ const router = new VueRouter({
             path: '/blog/:slug',
             name: 'single-blog',
             component: SingleBlogComponent
+        },
+        {
+            path: '/categories',
+            name: 'categories',
+            component: CategoriesComponent
+        },
+        {
+            path: '/categories/:id',
+            name: 'post-per-category',
+            component: PostsPerCategoryComponent
         },
         {
             path: '/who-we-are',
