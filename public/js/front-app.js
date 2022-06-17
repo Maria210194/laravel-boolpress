@@ -2238,8 +2238,96 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ContactsComponent'
+  name: 'ContactsComponent',
+  data: function data() {
+    return {
+      email: '',
+      name: '',
+      message: '',
+      sending: false,
+      success: false,
+      errors: undefined
+    };
+  },
+  methods: {
+    sendForm: function sendForm() {
+      var _this = this;
+
+      this.sending = true;
+      this.success = false;
+      window.axios.post('/api/contacts', {
+        name: this.name,
+        email: this.email,
+        message: this.message
+      }).then(function (_ref) {
+        var data = _ref.data,
+            status = _ref.status;
+
+        if (status === 200) {
+          _this.success = data.success;
+
+          if (!data.success) {
+            _this.sending = false;
+            _this.errors = data.errors;
+            console.log(_this.errors);
+          } else {
+            _this.name = '';
+            _this.email = '';
+            _this.message = '';
+          }
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -39023,19 +39111,231 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm.success
+          ? _c(
+              "div",
+              {
+                staticClass: "alert alert-success mt-2",
+                attrs: { role: "alert" },
+              },
+              [
+                _vm._v(
+                  "\n                Messaggio inviato correttamente!\n            "
+                ),
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            staticClass: "mt-2",
+            attrs: { method: "post" },
+            on: {
+              submit: function ($event) {
+                $event.preventDefault()
+                return _vm.sendForm()
+              },
+            },
+          },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "email" } },
+                [_vm._v("Email")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { type: "email", name: "email", disabled: _vm.success },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.email
+                ? _c("div", [
+                    _c(
+                      "ul",
+                      _vm._l(_vm.errors.email, function (errorText, index) {
+                        return _c(
+                          "li",
+                          {
+                            key: "error_email_" + index,
+                            staticClass: "text-danger list-group-item",
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(errorText) +
+                                "\n                        "
+                            ),
+                          ]
+                        )
+                      }),
+                      0
+                    ),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "name" } },
+                [_vm._v("Name")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.name,
+                    expression: "name",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", name: "name", disabled: _vm.success },
+                domProps: { value: _vm.name },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.name = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.name
+                ? _c("div", [
+                    _c(
+                      "ul",
+                      _vm._l(_vm.errors.name, function (errorText, index) {
+                        return _c(
+                          "li",
+                          {
+                            key: "error_name_" + index,
+                            staticClass: "text-danger",
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(errorText) +
+                                "\n                        "
+                            ),
+                          ]
+                        )
+                      }),
+                      0
+                    ),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "message" } },
+                [_vm._v("Message")]
+              ),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.message,
+                    expression: "message",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  name: "message",
+                  placeholder: "Type your message..",
+                  disabled: _vm.success,
+                },
+                domProps: { value: _vm.message },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.message = $event.target.value
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.message
+                ? _c("div", [
+                    _c(
+                      "ul",
+                      _vm._l(_vm.errors.message, function (errorText, index) {
+                        return _c(
+                          "li",
+                          {
+                            key: "error_message_" + index,
+                            staticClass: "text-danger",
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(errorText) +
+                                "\n                        "
+                            ),
+                          ]
+                        )
+                      }),
+                      0
+                    ),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: { type: "submit", disabled: _vm.sending },
+                },
+                [_vm._v("Send")]
+              ),
+            ]),
+          ]
+        ),
+      ]),
+    ]),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 text-center" }, [
-          _vm._v("\n            Contatti\n        "),
-        ]),
-      ]),
+    return _c("div", { staticClass: "mt-3" }, [
+      _c("h3", { staticClass: "text-success" }, [_vm._v("Contact us")]),
     ])
   },
 ]
