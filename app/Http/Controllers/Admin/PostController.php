@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
 use App\Post;
 use App\Category;
 use App\Tag;
@@ -45,17 +48,25 @@ class PostController extends Controller
             'title'=>'required|max:250',
             'content'=>'required|min:5',
             'category_id'=>'required|exists:categories,id',
-            'tags'=>'exists:tags,id'
+            'tags'=>'exists:tags,id',
+            'image'=>'nullable|image'
             ],
             [
                 'title.required'=>'Il titolo dev\'essere valorizzato',
                 'title.max'=>'Hai superato i 250 caratteri',
                 'content.min'=>':attribute deve avere almeno :min caratteri',
                 'category_id.exists'=> 'La categoria selezionata non esiste',
-                'tags'=>'Il Tag non esiste'
+                'tags'=>'Il Tag non esiste',
+                'image'=>'Il file dev\'essere un\'immagine'
             ]);
 
             $postData = $request->all();
+
+            if(array_key_exists('image', $postData)){
+                $img_path = Storage::put('uploads', $postData['image']);
+                $postData['cover'] = $img_path;
+            }
+
             $newPost = new Post();
 
             $newPost->fill($postData);
@@ -125,18 +136,28 @@ class PostController extends Controller
             'title'=> 'required|max:250',
             'content'=> 'required|min:5',
             'category_id'=>'required|exists:categories,id',
-            'tags'=>'exists:tags,id'
+            'tags'=>'exists:tags,id',
+            'image'=>'nullable|image'
         ],
         [
             'title.required'=>'Il titolo dev\'essere valorizzato',
             'title.max'=>'Hai superato i 250 caratteri',
             'content.min'=>':attribute deve avere almeno :min caratteri',
             'category_id.exists'=> 'La categoria selezionata non esiste',
-            'tags'=>'Il Tag non esiste'
+            'tags'=>'Il Tag non esiste',
+            'image'=> 'Il file dev\'essere un\'immagine'
         ]);
-
-
         $postData = $request->all();
+
+        if(array_key_exists('image', $postData)){
+            if($post->cover){
+                Storage::delete($post->cover);
+            }
+            $img_path = Storage::put('uploads', $postData['image']);
+            $postData['cover'] = $img_path;
+        }
+
+
         $post->fill($postData);
         $post->slug= Post::convertToSlug($post->title);
 
@@ -161,6 +182,9 @@ class PostController extends Controller
         //
         if($post){
             $post->tags()->sync([]);
+            if($post->cover){
+                Storage::delete($post->cover);
+            }
             $post->delete();
         }
         //$post = Post::findOrFail($id);

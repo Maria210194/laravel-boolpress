@@ -17,7 +17,7 @@ class Post extends Model
         return $this->belongsToMany('App\Tag');
     }
 
-    protected $fillable=['title', 'content', 'slug', 'category_id'];
+    protected $fillable=['title', 'content', 'slug', 'category_id', 'cover'];
 
 
     //funzione che prende un input stringa e ritorna uno slug unico:

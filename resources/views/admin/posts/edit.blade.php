@@ -38,6 +38,22 @@
     </div>
 
     <div class="form-group">
+        @if($post->cover)
+            <div>
+                <img src="{{asset('storage/' . $post->cover)}}">
+            </div>
+        @endif
+        <label for="image">Cover</label>
+        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"/>
+        @error('image')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+        @enderror
+    </div>
+
+
+    <div class="form-group">
         <label>Categoria</label>
         <select name="category_id" class="@error('category_id') is-invalid @enderror">
             <option>Seleziona la categoria</option>

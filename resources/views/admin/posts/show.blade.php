@@ -15,10 +15,14 @@
     <dd>{{$post->title}}</dd>
     <dt>Slug</dt>
     <dd>{{$post->slug}}</dd>
-    <dt>Categoria</dt>
-    <dd>{{$post->category->name}}</dd>
+    <dt>Cover</dt>
+    <dd>
+        <img class="w-50" src="{{asset('storage/' . $post->cover)}}">
+    </dd>
     <dt>Contenuto</dt>
     <dd>{{$post->content}}</dd>
+    <dt>Categoria</dt>
+    <dd>{{$post->category->name}}</dd>
     <dt>Tags</dt>
     <dd>
         @foreach ($post->tags as $tag)

@@ -47,6 +47,16 @@
         @enderror
     </div>
 
+    <div class="form-group">
+        <label for="image">Cover</label>
+        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"/>
+        @error('image')
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+         @enderror
+    </div>
+
 
     <div class="form-group">
         <label for="content">Contenuto</label>
