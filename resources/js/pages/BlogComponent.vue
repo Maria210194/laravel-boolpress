@@ -2,10 +2,10 @@
   <div class="container">
       <div class="row">
           <div class="col-12 text-center mb-2">
-              My Posts
+             <h1>My Posts</h1>
           </div>
           <!--se i post sono stati valorizzati, li mostro: -->
-          <div v-if="posts.length>0">
+          <div class="mx-auto" v-if="posts.length>0">
             <PostCardListComponent :posts="posts" />
 
             <button v-if="previosPageLink" @click="goPreviousPage()" class="btn btn-primary mt-5">

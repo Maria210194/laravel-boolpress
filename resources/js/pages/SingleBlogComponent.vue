@@ -6,9 +6,13 @@
           </div>
           <!--se i post sono stati valorizzati, li mostro: -->
           <div v-if="post">
-            <h3>
+            <h2>
                 {{post.title}}
-            </h3>
+            </h2>
+            <img
+                :src="'/storage/' + post.cover"
+                :alt="post.title"
+            />
             <p>
                 {{post.content}}
             </p>
